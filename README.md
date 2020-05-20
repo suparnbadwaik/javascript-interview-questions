@@ -5264,20 +5264,6 @@ function userDetails(username) {
 
      **[⬆ Back to Top](#table-of-contents)**
 
-372. ### How do you create copy to clipboard button?
-     You need to select the content(using .select() method) of input element and execute the copy command with execCommand (i.e, execCommand('copy')). You can also execute another system commands like cut and paste.
-     ```javascript
-     document.querySelector("#copy-button").onclick = function() {
-       // Select the content
-       document.querySelector("#copy-input").select();
-       // Copy to the clipboard
-       document.execCommand('copy');
-     };
-
-     ```
-
-     **[⬆ Back to Top](#table-of-contents)**
-
 373. ### What is the shortcut to get timestamp?
      You can use `new Date().getTime()` to get the current timestamp. There is an alternative shortcut to get the value.
      ```javascript
@@ -5287,26 +5273,7 @@ function userDetails(username) {
 
      **[⬆ Back to Top](#table-of-contents)**
 
-374. ### How do you flattening multi dimensional arrays?
-     Flattening bi-dimensional arrays is trivial with Spread operator.
-     ```javascript
-     const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
-     const flattenArr = [].concat(...biDimensionalArr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
-     ```
-     But you can make it work with multi-dimensional arrays by recursive calls,
-
-     ```javascript
-     function flattenMultiArray(arr) {
-         const flattened = [].concat(...arr);
-         return flattened.some(item => Array.isArray(item)) ? flattenMultiArray(flattened) : flattened;
-      }
-     const multiDimensionalArr = [11, [22, 33], [44, [55, 66, [77, [88]], 99]]];
-     const flatArr = flattenMultiArray(multiDimensionalArr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
-     ```
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-375. ### What is the easiest multi condition checking?
+374. ### What is the easiest multi condition checking?
 
      You can use `indexOf` to compare input with multiple values instead of checking each value as one condition.
      ```javascript
@@ -5322,12 +5289,26 @@ function userDetails(username) {
 
      **[⬆ Back to Top](#table-of-contents)**
 
-376. ### How do you capture browser back button?
+375. ### How do you capture browser back button?
      The `window.onbeforeunload` method is used to capture browser back button event. This is helpful to warn user about loosing the current data.
      ```javascript
      window.onbeforeunload = function() {
      	alert("You work will be lost");
      };
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+376. ### How do you create copy to clipboard button?
+     You need to select the content(using .select() method) of input element and execute the copy command with execCommand (i.e, execCommand('copy')). You can also execute another system commands like cut and paste.
+     ```javascript
+     document.querySelector("#copy-button").onclick = function() {
+       // Select the content
+       document.querySelector("#copy-input").select();
+       // Copy to the clipboard
+       document.execCommand('copy');
+     };
+
      ```
 
      **[⬆ Back to Top](#table-of-contents)**
@@ -5364,42 +5345,6 @@ function userDetails(username) {
 
      **[⬆ Back to Top](#table-of-contents)**
 
-381. ### How to cancel a fetch request?
-     Until few days back, One shortcoming of native promises is no direct way to cancel a fetch request. But the new `AbortController` from js specification allows you to use a signal to abort one or multiple fetch calls.
-     The basic flow of cancelling a fetch request would be as below,
-     1. Create an `AbortController` instance
-     2. Get the signal property of an instance and pass the signal as a fetch option for signal
-     3. Call the AbortController's abort property to cancel all fetches that use that signal
-     For example, let's pass the same signal to multiple fetch calls will cancel all requests with that signal,
-     ```js
-     const controller = new AbortController();
-     const { signal } = controller;
-
-     fetch("http://localhost:8000", { signal }).then(response => {
-         console.log(`Request 1 is complete!`);
-     }).catch(e => {
-         if(e.name === "AbortError") {
-             // We know it's been canceled!
-         }
-     });
-
-     fetch("http://localhost:8000", { signal }).then(response => {
-         console.log(`Request 2 is complete!`);
-     }).catch(e => {
-          if(e.name === "AbortError") {
-              // We know it's been canceled!
-           }
-     });
-
-     // Wait 2 seconds to abort both requests
-     setTimeout(() => controller.abort(), 2000);
-     ```
-     **[⬆ Back to Top](#table-of-contents)**
-
-382. ### What is web speech API?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
 383. ### What is minimum timeout throttling?
      Both browser and NodeJS javascript environments, throttles with a minimum delay that is greater than 0ms. That means even though setting a delay of 0ms will not happen instantaneously.
      **Browsers:** They have minimum delay of 4ms. This throttle occurs when successive calls are triggered due to callback nesting(certain depth) or after a certain number of successive intervals.
@@ -5433,34 +5378,6 @@ function userDetails(username) {
      ```
      **[⬆ Back to Top](#table-of-contents)**
 
-384. ### How do you implement zero timeout in modern browsers?
-     You can't use setTimeout(fn, 0) to execute the code immediately due to minimum delay of greater than 0ms. But you can use window.postMessage() to achieve this behavior.
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-385. ### What are tasks in event loop?
-     A task is any javascript code/program which is scheduled to be run by the standard mechanisms such as initially starting to run a program, run an event callback, or an interval or timeout being fired. All these tasks are schedules on task queue.
-     Below is the list of use cases to add tasks to the task queue,
-     1. When a new javascript program is executed directly from console or running by the <script> element, the task will be added to task queue.
-     2. When an event fires, the event callback added to task queue
-     3. When a setTimeout or setInterval is reached, the corresponding callback added to task queue
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-386. ### What is microtask?
-     Microtask is the javascript code which needs to be executed immediately after the currently executing task/microtask is completed. The main sources of microtasks are Promise.resolve, Promise.reject, MutationObservers, IntersectionObservers etc
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-387. ### What are different event loops?
-
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-388. ### What is the purpose of queueMicrotask?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
 389. ### How do you use javascript libraries in typescript file?
      It is known that not all JavaScript libraries or frameworks have TypeScript declaration files. But if you still want to use libraries or frameworks in our TypeScript files without getting compilation errors, the only solution is `declare` keyword along with a variable declaration. For example, let's imagine you have a library called `customLibrary` that doesn’t have a TypeScript declaration and have a namespace called `customLibrary` in the global namespace. You can use this library in typescript code as below,
      ```js
@@ -5470,7 +5387,6 @@ function userDetails(username) {
      ```js
      var customLibrary: any;
      ```
-     **[⬆ Back to Top](#table-of-contents)**
 
 390. ### What are the differences between promises and observables?
      Some of the major difference in a tabular form
@@ -5482,64 +5398,6 @@ function userDetails(username) {
      | Promise is always asynchronous even though it resolved immediately | Observable can be either synchronous or asynchronous|
      | Doesn't provide any operators | Provides operators such as map, forEach, filter, reduce, retry, and retryWhen etc |
      | Cannot be canceled | Canceled by using unsubscribe() method |
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-391. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-392. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-393. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-394. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-395. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-396. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-397. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-398. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-399. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-400. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-401. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-402. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-403. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
-
-404. ### ?
-
-     **[⬆ Back to Top](#table-of-contents)**
 
 
 
